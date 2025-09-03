@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biodata & Buku Tamu</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: url("https://cdn.discordapp.com/attachments/1409116428069507154/1412754629153783878/c63a970233d4c6ed0e4455f91c7a544b.jpg?ex=68b971c7&is=68b82047&hm=4c2dc5e766023c2561daeae96728cdb674d0ba13f46599d4772a10109da41b4e&") no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+  padding: 30px;
+  transition: background 0.3s, color 0.3s;
+}
+
+
+    /* Kartu biodata */
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Link club */
+    .links {
+      margin-top: 15px;
+    }
+    .links a {
+      text-decoration: none;
+      color: #007bff;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Form buku tamu */
+    form {
+      margin-top: 30px;
+    }
+
+    input, textarea {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    /* Daftar pesan */
+    #guestList {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #guestList li {
+      background: #fff;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #guestList button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #guestList button:hover {
+      background: darkred;
+    }
+
+    /* Dark mode button */
+    .dark-toggle {
+      margin: 20px;
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Bagian Biodata -->
+  <div class="card">
+    <img src="https://cdn.discordapp.com/attachments/1409116428069507154/1412740458739929230/e-IT_Club.jpg?ex=68b96494&is=68b81314&hm=e2078be9ef9593a920db6692b07c59d4a93f13033633e3871b4b6460962722e8&" alt="Logo Club" class="logo">
+    <h1>zRyuga</h1>
+    <p>Umur: 16 Tahun</p>
+    <p>Sekolah: SMAN  12 BONE</p>
+    <p>Hobi: Coding, Main Game, Olahraga, Literasi</p>
+
+    <!-- Link ke website/club -->
+    <div class="links">
+      <a href="https://ryupantek.com" target="_blank">🌐 Website Club</a>
+      <a href="https://instagram.com/ikyy.lmao_" target="_blank">📸 Instagram</a>
+    </div>
+  </div>
+
+  <!-- Buku Tamu -->
+  <h2>Buku Tamu</h2>
+  <form id="guestForm">
+    <input type="text" id="nama" placeholder="Nama" required><br>
+    <textarea id="pesan" placeholder="Pesan kamu..." required></textarea><br>
+    <button type="submit">Kirim</button>
+  </form>
+
+  <h3>Daftar Pesan:</h3>
+  <ul id="guestList"></ul>
+
+  <script>
+    const form = document.getElementById("guestForm");
+    const guestList = document.getElementById("guestList");
+
+    // Ambil data lama dari localStorage
+    let data = JSON.parse(localStorage.getItem("bukuTamu")) || [];
+
+    // Render pesan
+    function render() {
+      guestList.innerHTML = "";
+      data.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${item.nama}</strong>: ${item.pesan} 
+          <button onclick="hapusPesan(${index})">🗑️</button>`;
+        guestList.appendChild(li);
+      });
+    }
+
+    // Tambah pesan baru
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const pesan = document.getElementById("pesan").value;
+
+      data.push({ nama, pesan });
+      localStorage.setItem("bukuTamu", JSON.stringify(data));
+
+      render();
+      form.reset();
+    });
+
+    // Hapus pesan
+    function hapusPesan(index) {
+      data.splice(index, 1);
+      localStorage.setItem("bukuTamu", JSON.stringify(data));
+      render();
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Render awal
+    render();
+  </script>
+</body>
+</html>
