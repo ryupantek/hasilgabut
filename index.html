@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<link href="https://www.dafont.com/street-flow-nyc.font=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biodata & Buku Tamu</title>
@@ -13,7 +14,18 @@
   padding: 30px;
   transition: background 0.3s, color 0.3s;
 }
+@font-face {
+  font-family: 'StreetFlowNYC';
+  src: url('fonts/Street Flow NYC.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
+body {
+  font-family: 'StreetFlowNYC', Arial, sans-serif;
+  font-size: 3rem;
+  color: #38bdf8;
+}
 
     /* Kartu biodata */
     .card {
@@ -29,14 +41,33 @@
       width: 100px;
       margin-bottom: 15px;
     }
+.typing {
+  width: 22ch; /* 19 */
+  animation: typing 3s steps(22), blink 0.5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-size: 24px;
+  font-family: monospace;
+}
+
+@keyframes typing {
+  from { width: 0 }
+}
+@keyframes blink {
+  50% { border-color: transparent }
+}
+body {
+  font-family: 'street flow nyc', sans-serif;
+}
 
     h1 {
-      color: #333;
+      color: black;
     }
 
     p {
-      font-size: 16px;
-      color: #555;
+      font-size: 24px;
+      color: black;
     }
 
     /* Link club */
@@ -149,6 +180,8 @@
   <h3>Daftar Pesan:</h3>
   <ul id="guestList"></ul>
 
+<h2 class="typing">Welcome to my Website!</h2>
+
   <script>
     const form = document.getElementById("guestForm");
     const guestList = document.getElementById("guestList");
@@ -188,10 +221,6 @@
       render();
     }
 
-    // Dark Mode Toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-    }
 
     // Render awal
     render();
